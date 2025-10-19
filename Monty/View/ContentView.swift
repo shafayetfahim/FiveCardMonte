@@ -10,8 +10,7 @@ import SwiftUI
 struct ContentView: View
 {
     @StateObject private var viewModel = MontyVM()
-    let columns = [GridItem(), GridItem(), GridItem()]
-    
+    let columns = Array(repeating: GridItem(.flexible(), spacing: 5), count: 5)
     var body: some View
     {
         ZStack
@@ -23,7 +22,7 @@ struct ContentView: View
             {
                 LazyVGrid(columns: columns, spacing: 20)
                 {
-                    ForEach(0..<3)
+                    ForEach(0..<5)
                     {
                         i in Button(action:{viewModel.onCardTap(at: i)})
                         {
@@ -32,25 +31,44 @@ struct ContentView: View
                             flipped: viewModel.revealed[i]
                             )
                             .shadow(radius: 8)
-
                         }
                     }
                 }
-                .padding()
+                .padding(50)
                 
-                Button {viewModel.newGame()}
-                label:
+                ZStack
                 {
-                    Image("NewGame")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 180, height: 60)
-                    .opacity(viewModel.gameOver ? 1 : 0)
+                    Rectangle()
+                    .fill(Color.black.opacity(0.6))
+                    .frame(height: 180)
+                    .ignoresSafeArea()
+                    HStack
+                    {
+                        VStack
+                        {
+                            Text("Player Balance: $\(viewModel.playerBalance)")
+                            .fontWeight(.semibold)
+                            .padding(.bottom, 10)
+                            Text("House Balance: $\(viewModel.houseBalance)")
+                            .fontWeight(.semibold)
+                            .padding(.bottom, 10)
+                        }
+                        Button("Play"){viewModel.newGame()}
+                            .font(.title)
+                            .padding(50)
+                            .foregroundColor(Color.green)
+                        Button("Reset"){viewModel.resetGame()}
+                            .font(.title)
+                            .padding(50)
+                    }
+                    .padding(.bottom, 60)
                 }
-                .disabled(!viewModel.gameOver)
-                .shadow(radius: 8)
+                .foregroundColor(Color.gray)
+
+
             }
-            
+            .padding(.top, 100)
+
             if viewModel.gameOver
             {
                 Image(viewModel.playerWins ? "Winner" : "Loser")
@@ -59,7 +77,7 @@ struct ContentView: View
                 .scaledToFit()
                 .frame(height: 100)
                 .frame(maxWidth: .infinity, alignment: .top)
-                .padding(.bottom, 340)}
+                .padding(.bottom, 0)}
             
         }
     }
