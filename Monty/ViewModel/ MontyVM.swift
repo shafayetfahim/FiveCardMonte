@@ -13,7 +13,7 @@ class MontyVM: ObservableObject
     @Published var revealed = [false, false, false, false, false]
     @Published var gameOver = false
     @Published var playerWins = false
-
+    @Published var dealt = false
     @Published var playerBalance = 0
     @Published var houseBalance = 0
 
@@ -38,6 +38,7 @@ class MontyVM: ObservableObject
         revealed = [false, false, false, false, false]
         gameOver = false
         playerWins = false
+        dealt = true
     }
     
     func resetGame()
@@ -50,7 +51,6 @@ class MontyVM: ObservableObject
         revealed = [false, false, false, false, false]
         gameOver = false
         playerWins = false
-        playerBalance = 0
-        houseBalance = 0
+        dealt = false
     }
 }
