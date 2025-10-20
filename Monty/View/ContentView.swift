@@ -46,7 +46,7 @@ struct ContentView: View
                 ZStack
                 {
                     Rectangle()
-                    .fill(Color.black.opacity(0.6))
+                    .fill(Color.black.opacity(0.5))
                     .frame(height: 200)
                     .ignoresSafeArea()
                     .shadow(radius: 15)
@@ -76,7 +76,7 @@ struct ContentView: View
                     }
                     .padding(.bottom, 60)
                 }
-                .foregroundColor(.secondary)
+                .foregroundColor(.gray)
             }
             .padding(.top, 100)
             .onChange(of: viewModel.gameOver)
