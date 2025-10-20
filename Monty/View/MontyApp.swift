@@ -10,8 +10,9 @@ import SwiftUI
 @main
 struct MontyApp: App
 {
+    @StateObject private var viewModel = MontyVM()
     var body: some Scene
     {
-        WindowGroup {ContentView()}
+        WindowGroup {ContentView(viewModel: viewModel)}
     }
 }

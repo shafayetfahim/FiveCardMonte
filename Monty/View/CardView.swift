@@ -15,31 +15,34 @@ struct CardView: View
 
     var body: some View
     {
-        ZStack {
+        ZStack
+        {
             Image("CardBack")
-                .resizable()
-                .scaledToFit()
-                .opacity(rotation < 90 ? 1 : 0)
+            .resizable()
+            .scaledToFit()
+            .opacity(rotation < 90 ? 1 : 0)
 
             Image(imageName)
-                .resizable()
-                .scaledToFit()
-                .opacity(rotation >= 90 ? 1 : 0)
+            .resizable()
+            .scaledToFit()
+            .opacity(rotation >= 90 ? 1 : 0)
         }
         .rotation3DEffect(.degrees(rotation), axis: (x: 0, y: 1, z: 0))
-        .onAppear {
-            rotation = flipped ? 180 : 0
-        }
-        .onChange(of: flipped) { _, newValue in
-            withAnimation(.easeInOut(duration: 0.5)) {
+        .onAppear {rotation = flipped ? 180 : 0}
+        .onChange(of: flipped)
+        {
+            i, newValue in withAnimation(.easeInOut(duration: 0.5))
+            {
                 rotation = newValue ? 180 : 0
             }
         }
     }
 }
 
-#Preview {
-    ZStack {
+#Preview
+{
+    ZStack
+    {
         CardView(imageName: "CardAce", flipped: true)
         CardView(imageName: "CardBlank", flipped: false)
     }

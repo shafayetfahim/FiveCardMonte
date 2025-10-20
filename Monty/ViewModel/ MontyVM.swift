@@ -36,7 +36,7 @@ class MontyVM: ObservableObject
         cards = cards.indices.map
         {
             position in position == acePosition ? "CardAce" : "CardBlank"
-        }
+            }
         revealed = [false, false, false, false, false]
         gameOver = false
         playerWins = false
@@ -46,8 +46,6 @@ class MontyVM: ObservableObject
         
     func resetGame()
     {
-        
-        
         guard gameStarted else
         {
             cardOffsets = Array(repeating: 0, count: 5)
