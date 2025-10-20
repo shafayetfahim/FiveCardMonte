@@ -15,6 +15,13 @@ struct ContentView: View
     @State private var bannerAsset: String? = nil
     private let columns = Array(repeating: GridItem(.flexible()), count: 5)
     private let bannerAnimDuration = 1.0
+    private let currencyFormatter: NumberFormatter =
+    {
+        let f = NumberFormatter()
+        f.numberStyle = .currency
+        f.currencyCode = "USD"
+        return f
+    }()
 
     var body: some View
     {
@@ -46,7 +53,8 @@ struct ContentView: View
                 ZStack
                 {
                     Rectangle()
-                    .fill(Color.black.opacity(0.5))
+                    .fill(Color(red: 25/255, green: 25/255, blue: 25/255)
+)
                     .frame(height: 200)
                     .ignoresSafeArea()
                     .shadow(radius: 15)
@@ -55,22 +63,24 @@ struct ContentView: View
                     {
                         VStack
                         {
-                            Text("Player Balance: $\(viewModel.playerBalance)")
+                            Text("Player Balance: \(currencyFormatter.string(from: NSNumber(value: viewModel.playerBalance)) ?? "$0")")
                             .fontWeight(.semibold)
                             .padding(.bottom, 10)
-                            Text("House Balance: $\(viewModel.houseBalance)")
+                            Text("House Balance: \(currencyFormatter.string(from: NSNumber(value: viewModel.houseBalance)) ?? "$0")")
                             .fontWeight(.semibold)
                             .padding(.bottom, 10)
+
                         }
+                        .foregroundColor(.yellow)
                         Spacer()
                         Button("Play") {viewModel.newGame()}
                         .disabled(viewModel.gameStarted)
                         .font(.title)
                         .padding()
-                        .foregroundColor(viewModel.dealt ? .secondary : .yellow)
+                        .foregroundColor(viewModel.dealt ? .secondary : .green)
                         Button("Reset") {viewModel.resetGame()}
                         .disabled(!viewModel.gameOver)
-                        .foregroundColor(viewModel.gameOver ? .yellow : .secondary)
+                        .foregroundColor(viewModel.gameOver ? .green : .secondary)
                         .font(.title)
                         .padding(50)
                     }
