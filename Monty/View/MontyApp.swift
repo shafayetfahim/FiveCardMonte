@@ -13,6 +13,6 @@ struct MontyApp: App
     @StateObject private var viewModel = MontyVM()
     var body: some Scene
     {
-        WindowGroup {ContentView(viewModel: viewModel)}
+    WindowGroup {ContentView(viewModel: viewModel)}
     }
 }
